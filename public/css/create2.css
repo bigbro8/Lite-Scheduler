@@ -1,0 +1,232 @@
+@import "general.css";
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    height:700px;
+}
+
+
+p{
+    text-align: center;
+}
+
+.form{
+    position: relative;
+    width: 800px;
+    height: 650px;
+    background:rgb(205, 208, 229, 20%);
+    border-radius: 20px;
+    margin: 20px;
+}
+
+
+.parent{
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    height: 600px;
+
+}
+
+.delimiter{
+    width: 300px;
+    height: 1px;
+    background-color: black;
+    margin-right: auto;
+    margin-left: auto;
+    margin-block: 20px;
+}
+
+.hordel{
+    height: 550px;
+    width: 1px;
+    background-color: black;
+}
+
+.records{
+    position: relative;
+    display: grid;
+    justify-content: center;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: black rgb(205, 208, 229, 20%);
+    width: 400px;
+    height: 650px;
+    background-color: rgb(205, 208, 229, 20%);
+    margin: 20px;
+}
+
+
+.record{
+    margin-top: 50px;
+}
+
+.rec{
+    width: 300px;
+    height: 80px;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(37, 37, 39, 0.3);
+    border-radius: 20px;
+}
+
+
+.rec span{
+    padding-inline: 20px;
+}
+
+.delete{
+    width: 30px;
+    padding-inline: 20px;
+    cursor: pointer;
+}
+
+input[type=text]{
+    width: 300px;
+    height: 30px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+
+
+.centerit{
+    display: flex;
+    justify-content: center;
+}
+
+.submit{
+    height: 35px;
+    width: 70px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    border-radius: 10px;
+}
+
+.delall{
+    position: absolute;
+    cursor: pointer;
+    width: 70px;
+    height: 30px;
+    left: 20px;
+    top: 20px;
+    border-radius: 10px;
+
+}
+
+h2{
+    position: absolute;
+    right: 10px;
+}
+
+.teachers{
+    overflow-y:scroll;
+    scrollbar-width: thin;
+    scrollbar-color: black rgb(205, 208, 229, 20%);
+    width: 250px;
+    height: 150px;
+    background: rgb(205, 208, 229, 20%);
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 10px;
+}
+
+.teacher{
+    width: 98%;
+    height: 50px;
+    border-block: 1px solid gray;
+    background:rgba(17, 37, 188, 0.452);
+    cursor: pointer;
+}
+
+
+.selected-teacher{
+    background-color: rgb(194, 159, 227, 0.452);
+}
+
+
+.prereqs{
+    overflow-y:scroll;
+    scrollbar-width: thin;
+    scrollbar-color: black rgb(205, 208, 229, 20%);
+    width: 250px;
+    height: 150px;
+    background: rgb(205, 208, 229, 20%);
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 10px;
+}
+
+.course{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 98%;
+    height: 50px;
+    border-block: 1px solid gray;
+    background:rgba(17, 37, 188, 0.452);
+    cursor: pointer;
+}
+
+
+.selected-course{
+    background-color: rgb(194, 159, 227, 0.452);
+}
+
+label{
+    padding-left: 20px;
+}
+
+
+
+
+
+
+
+
+
+.range{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+
+}
+
+#slider{
+    width: 70%;
+}
+
+.range-label{
+    width: 75%;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+.label-container{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 10px;
+}
+
+
+
+.fix{
+    display: none;
+}
+
+
+.secondC{
+    display: none;
+}
+
+
+.oddE{
+    display: none;
+}

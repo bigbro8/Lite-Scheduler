@@ -1,0 +1,86 @@
+@import "general.css";
+
+
+.container{
+    height: 650px;
+    width: 350px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+
+}
+
+
+.inputs{
+    width: auto;
+    height: 150px;
+    background: rgb(205, 208, 229, 30%);
+    border-radius: 20px;
+}
+
+
+.textInput{
+    padding-top: 20px;
+    display: grid;
+    justify-content: center;
+
+}
+
+
+input[type=text]{
+    width: 250px;
+    height: 25px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.4);}
+
+.submit{
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.records{
+    border-radius: 20px;
+    width: auto;
+    height: 200px;
+    display: grid;
+    scrollbar-color: black rgb(205, 208, 229, 30%);
+    justify-content: center;
+    background:rgb(205, 208, 229, 20%);;
+    overflow-y: scroll;
+    margin-top: 30px;
+}
+
+
+
+.record{
+    height: 40px;
+    width:300px;
+    display: flex;
+    justify-content: space-around;
+    background:rgba(37, 37, 39, 0.3);
+    border-radius: 20px;
+    margin-top:30px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+
+.record span{
+    padding-inline: 20px;
+}
+
+
+.delete{
+    width: 30px;
+    padding-inline: 20px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+
+.left{
+    left: 100px;
+}

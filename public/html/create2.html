@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/create2.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <form action="" id="form-id">
+                <div class="parent">
+                <div class="part1">
+                    <p>نام درس را وارد کنید<p>
+                    <input type="text" id="course-name" name="cname" dir="rtl">
+                    <div class="delimiter"></div>
+                    <p>ساعت های درس را مشخص کنید</p>
+                        <label for="3-hours"  style="margin-left: 60px;">سه ساعته(چهار واحدی)</label>
+                        <input type="radio" id="3-hours" name="hours" value="3h" class="hours"><br>
+                        <label for="even-odd">سه ساعته زوج و فرد(سه واحدی)</label>
+                        <input type="radio" id="even-odd" name="hours" value="eo" class="hours"><br>
+                        <label for="1-hour"  style="margin-left: 19px;">یک ساعتو نیم(یک یا دو واحدی)</label>
+                        <input type="radio" id="1-hour" name="hours" value="1h" class="hours">
+                    <div class="delimiter"></div>
+                    <p>ترم ارایه ی درس را وارد کنید</p>
+                    <div class="centerit">
+                        <input type="number" id="itsterm" min="1" max="8">
+                    </div>
+                    <div class="delimiter"></div>
+                    <p>گروه درس را وارد کنید</p>
+                    <div class="centerit">
+                        <select name="group" id="group"></select>
+                    </div>
+                    <div class="oddE">
+                        <div class="delimiter"></div>
+                        <p>زوج یا فرد بودن ساعت دوم را انتخاب کنید</p>
+                        <select name="OddEven" id="OddEven">
+                            <option value="o">
+                                فرد
+                            </option>
+                            <option value="e">
+                                زوج
+                            </option>
+                            <!-- <option value="dc">
+                                بی اهمیت
+                            </option> -->
+                        </select>
+                    </div>
+
+                </div>
+                <div class="hordel"></div>
+                <div class="part2">
+                    <p>
+                    آیا زمان این درس ثابت است؟
+                    </p>
+                    <input type="checkbox" name="isfix" id="isfix">
+                    <div class="fix">
+                        <div class="delimiter"></div>
+                        <p>
+                            زمان ارایه این درس را وارد کنید
+                        </p>
+                        <label for="day1" style="float: right;">روز</label><br><br>
+                        <input type="number" name="day1" id="day1" min="0" max="4"><br><br>
+                        <label for="fixsection1" style="float: right;">بخش</label><br><br>
+                        <input type="number" name="fixsection1" id="fixsection1" min="1" max="5"><br>
+                        <div class="secondC">
+                            <div class="delimiter" style="width: 200px;"></div>
+                            <label for="day2" style="float: right;">روز دوم</label><br><br>
+                            <input type="number" name="day2" id="day2" min="0" max="4"><br><br>
+                            <label for="fixsection2" style="float: right;">بخش دوم</label><br><br>
+                            <input type="number" name="fixsection2" id="fixsection2" min="1" max="5">
+                        </div>
+                    </div>
+                    <div class="innerpart2">
+                        
+                        <p>استاد درس را انتخاب کنید</p>
+                        <div class="teachers"></div>
+                        <div class="delimiter"></div>
+                        <p>تداخل درس را با درس های وارد شده معین کنید</p>
+                        <div class="prereqs">
+                        </div>
+                    </div>
+                </div>
+                </div>
+              <button class="submit" type="submit">تایید</button>
+            </form>
+        </div>
+
+        <div class="records">
+          <button class="delall">حذف همه</button>
+          <h2>:دروس اضافه شده</h2>
+          <div class="record">
+          </div>
+        </div>
+    </div>
+    
+    <div class="nav-button next">
+        <p>بعدی</p>
+      </div>
+      <div class="nav-button prev">
+          <p>قبلی</p>
+      </div>
+
+   
+
+    <div class="alert-box" id="alert-box1" dir="rtl">
+        <div class="alert-container">
+            <h3 style="margin-right: 20px;">بازگشت باعث حذف تمام اطلاعات ذخیره شده می شود</h3>
+            <div class="alert-button right" id="real-prev">
+            <p>بازگشت</p>
+        </div>
+            <div class="alert-button left" id="cancel1">
+            <p>لغو</p>
+            </div>
+        </div>
+        </div>
+
+
+    <div class="alert-box" id="alert-box2" dir="rtl">
+    <div class="alert-container">
+        <h3 style="margin-right: 20px;">از اطلاعات وارد شده اطمینان دارید؟</h3>
+        <div class="alert-button right" id="confirm">
+            <p>تایید</p>
+        </div>
+        <div class="alert-button left" id="cancel2">
+            <p>لغو</p>
+        </div>
+    </div>
+    </div>
+
+
+
+    <div class="alert-box" id="alert-box3" dir="rtl">
+        <div class="alert-container">
+            <h3 style="margin-right: 20px;">لطفا دروس مورد نظر را وارد کنید</h3>
+            <div class="alert-button right" id="confirm3">
+                <p>تایید</p>
+            </div>
+        </div>
+        </div>
+
+    <script src="../js/create2.js"></script>
+</body>
+</html>

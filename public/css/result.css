@@ -1,0 +1,222 @@
+@import "general.css";
+
+
+
+.tab{
+    overflow: scroll;
+    margin-right: auto;
+    margin-left: auto;
+    margin-block: 30px;
+    height:650px;
+    width: fit-content;
+    background: rgb(205, 208, 229, 30%);
+    scrollbar-color: black rgb(205, 208, 229, 30%);
+
+}
+.presence {
+    width: 800px;
+    height: 650px;
+    border-collapse: collapse;
+    border: 1px solid #000000;
+}
+
+.presence td {
+    padding: 8px;
+    border: 1px solid #000000;
+}
+
+
+.buttons{
+    display:grid;
+    justify-content: center;
+    align-items:center ;
+    position: absolute;
+    height: 400px;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.459);
+    left: 20px;
+}
+
+button{
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.options{
+    position: absolute;
+    min-height:auto;
+    padding-bottom: 30px;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.459);
+    right: 20px;
+    top: 30px;
+}
+
+.chooseteacher{
+    height: auto;
+}
+
+
+.teachers{
+    display: none;
+    overflow-y:scroll;
+    scrollbar-width: thin;
+    scrollbar-color: black blueviolet;
+    width: 250px;
+    height: 200px;
+    background-color: blueviolet;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 10px;
+}
+
+.teacher{
+    width: 98%;
+    height: 50px;
+    border-block: 1px solid gray;
+    background-color: rgb(120, 39, 196);
+    cursor: pointer;
+}
+
+
+.selected-teacher{
+    background-color: rgb(173, 120, 223);
+}
+
+
+.container{
+    position: absolute;
+    display: none;
+    top:0;
+    right: 40%;
+    width: 400px;
+    height: auto;
+    background-color: rgb(27, 57, 57);
+    margin-top:100px;
+    padding-block:10px ;
+}
+
+.part1{
+    padding: 10px;
+    width: 90%;
+    height: 100px;
+    background-color: azure;    
+    border-radius: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+p{
+    text-align: center;
+}
+
+.part2{
+    display: none;
+    margin-top: 60px;
+    padding: 10px;
+    width: 90%;
+    height: 100px;
+    background-color: azure;    
+    border-radius: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.radio-b{
+    display: flex;
+    justify-content: space-around;
+}
+
+.iteration{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.submit{
+    height: 35px;
+    width: 70px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+
+
+.close{
+    height: 35px;
+    width: 70px;
+    margin: 10px;
+    border-radius: 10px;    
+    position: absolute;
+    left: 90px;
+    bottom: 10px;
+}
+
+
+.alert-box1{
+    display: none;
+    position: absolute;
+    width: 500px;
+    height: 200px;
+    top: 20%;
+    right: 35%;
+    background-color: beige;
+}
+
+.progress-bar{
+    display: block;
+}
+
+.progress-bar p{
+    margin-top: 30px;
+}
+
+.my-bar{
+    width: 80%;
+    height: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 45px;
+    background-color: aquamarine;
+    border-radius: 20px;
+}
+
+.my-prog{
+    width: 0%;
+    height: 35px;
+    border-radius: 20px;
+    background-color: red;
+
+}
+
+.alert-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    background-color: blue;
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+}
+
+.cancel1{
+    left: 100px;
+}
+
+
+
+
+.delimiter{
+    width: 200px;
+    height: 1px;
+    background-color: black;
+    margin-right: auto;
+    margin-left: auto;
+    margin-block: 20px;
+}

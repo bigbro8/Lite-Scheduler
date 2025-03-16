@@ -1,0 +1,113 @@
+@import "general.css";
+
+p{
+  text-align: center;
+}
+
+/* Sidebar styling */
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: -200px; /* Initially hidden */
+    background: rgb(205, 208, 229, 20%);
+    padding-top: 20px;
+    transition: left 0.3s ease;
+  }
+  
+  /* Links within the sidebar */
+  .sidebar a {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+  }
+  
+  /* Change color on hover */
+  .sidebar a:hover {
+    background-color: rgba(205, 208, 229, 0.359);
+  }
+  
+  /* Main content styling */
+  .schedules {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+.content{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 100px;
+  position: absolute;
+  top: 5%;
+  margin-top: 2%;
+}
+ 
+  
+
+.rec{
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: rgba(205, 208, 229, 0.359);
+}
+
+.img-container{
+  display: flex;
+  justify-content: center;
+}
+
+.empty{
+  display: none;
+}
+
+.empty img{
+  width: 100px;
+  height: 100px;
+
+}
+
+
+
+
+
+
+
+.arrow-image{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 0;
+  transition: left 0.3s ease;
+  cursor: pointer;
+}
+
+
+
+.add img{
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  bottom: 40px;
+  right: 40px;
+
+}
+
+.visit{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+  height: 35px;
+  background-color: #588de8d0;
+  bottom: 20px;
+  right: 32%;
+  border-radius: 10px;
+  cursor: pointer;
+}

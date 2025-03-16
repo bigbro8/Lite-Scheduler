@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/create1.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <form action="" id="form-id">
+              <div class="inputs">
+              <div class="part1">
+                <p>نام استاد را وارد کنید</p>
+                <input type="text" id="fname" name="fname" dir="rtl">
+                <div class="delimiter"></div>
+                <p>نام خانوادگی استاد را وارد کنید</p>
+                <input type="text" id="lname" name="lname" dir="rtl">
+                <div class="delimiter"></div>
+                <p>نوع زمانبندی استاد را وارد کنید</p>
+                <div class="radio-b">
+                <input type="radio" id="implicit" class="teacherTiming" name="teacherTiming" value="implicit">
+                <label for="implicit">پویا</label><br>
+                <input type="radio" id="explicit" class="teacherTiming" name="teacherTiming" value="explicit" checked="checked">
+                <label for="explicit">ثابت</label><br>
+                </div>
+                <div class="delimiter"></div>
+                <input type="checkbox" name="" id="gapPenalty">   
+                <p style="display: inline;">پنالتی فاصله بین دروس</p>
+                <div class="delimiter"></div>
+                <p>تمایل استاد را وارد کنید</p>
+                <div class="radio-1">
+                  <input type="radio" id="morningOri" class="teacherOrientation" name="teacherOrientation" value="morningOri">
+                  <label for="morningOri">تمایل به صبح</label><br>
+                  <input type="radio" id="evenningOri" class="teacherOrientation" name="teacherOrientation" value="evenningOri">
+                  <label for="evenningOri">تمایل به عصر</label><br>
+                  <input type="radio" id="no-pre" class="teacherOrientation" name="teacherOrientation" value="no-pre" checked="checked">
+                  <label for="">تفاوتی ندارد</label><br>
+                </div>
+              </div>
+              <div class="hordel"></div>
+              <div class="part2">
+                <div class="part21">
+                <p>زمان های حضور استاد در دانشگاه را مشخص کنید</p>
+                    <table class="presence"  dir="rtl">
+                          <tr>
+                            <td class="total"></td>
+                            <td class="days day-0">شنبه</td>
+                            <td class="days day-1">یکشنبه</td>
+                            <td class="days day-2">دوشنبه</td>
+                            <td class="days day-3">سه شنبه</td>
+                            <td class="days day-4">چهارشنبه</td>
+                          </tr>
+                          <tr>
+                            <td class="sec">sec 1</td>
+                            <td id="01" class="section"></td>
+                            <td id="11" class="section"></td>
+                            <td id="21" class="section"></td>
+                            <td id="31" class="section"></td>
+                            <td id="41" class="section"></td>
+                          </tr>
+                          <tr>
+                            <td class="sec">sec 2</td>
+                            <td id="02" class="section"></td>
+                            <td id="12" class="section"></td>
+                            <td id="22" class="section"></td>
+                            <td id="32" class="section"></td>
+                            <td id="42" class="section"></td>
+                          </tr>
+                          <tr>
+                            <td class="sec">sec 3</td>
+                            <td id="03" class="section"></td>
+                            <td id="13" class="section"></td>
+                            <td id="23" class="section"></td>
+                            <td id="33" class="section"></td>
+                            <td id="43" class="section"></td>
+                          </tr>
+                          <tr>
+                            <td class="sec">sec 4</td>
+                            <td id="04" class="section"></td>
+                            <td id="14" class="section"></td>
+                            <td id="24" class="section"></td>
+                            <td id="34" class="section"></td>
+                            <td id="44" class="section"></td>
+                          </tr>
+                          
+                          <tr>
+                            <td class="sec">sec 5</td>
+                            <td id="05" class="section"></td>
+                            <td id="15" class="section"></td>
+                            <td id="25" class="section"></td>
+                            <td id="35" class="section"></td>
+                            <td id="45" class="section"></td>
+                          </tr>
+                      </table>
+                    </div>
+                    <div class="part22">
+                    <p>تعداد روز های حضور استاد را وارد کنید</p>
+                    <input type="number" id="dayNumber" min="1" max="5">
+                    <div class="delimiter"></div>
+                    <p>ساعت های حضور استاد را وارد کنید</p>
+                      <table class="sectionsT" dir="rtl">
+                        <tr class="tr1">
+                          <td>1</td>
+                          <td>2</td>
+                          <td>3</td>
+                          <td>4</td>
+                          <td>5</td>
+                        </tr>
+                        <tr>
+                          <td id="0" class="sectionT"></td>
+                          <td id="1" class="sectionT"></td>
+                          <td id="2" class="sectionT"></td>
+                          <td id="3" class="sectionT"></td>
+                          <td id="4" class="sectionT"></td>
+                        </tr>
+
+                      </table>
+
+                    </div>
+                    </div>
+                  </div>
+              <button class="submit" type="submit">تایید</button>
+            </form>
+        </div>
+        <div class="records">
+          <button class="delall">حذف همه</button>
+          <h2>:اساتید اضافه شده</h2>
+
+          <div class="record">
+            <!-- <div class="rec">
+              <span>۱-اکبر محمدی</span>
+              <img src="../images/icons8-delete-30.png" alt="" class="delete">
+            </div> -->
+          </div>
+        </div>
+    </div>
+    
+    <div class="nav-button next">
+      <p>بعدی</p>
+    </div>
+
+    <div class="nav-button prev">
+        <p>قبلی</p>
+    </div>
+
+    <div class="alert-box1" dir="rtl">
+      <div class="alert-container">
+        <h3 style="margin-right: 20px;">بازگشت باعث حذف تمام اطلاعات ذخیره شده می شود</h3>
+        <div class="alert-button real-prev">
+          <p>بازگشت</p>
+      </div>
+        <div class="alert-button cancel1">
+          <p>لغو</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-box2" dir="rtl">
+      <div class="alert-container">
+        <h3 style="margin-right: 20px;">اطلاعات اساتید را وارد کنید</h3>
+        <div class="alert-button cancel2">
+          <p>لغو</p>
+        </div>
+      </div>
+    </div>
+  <script src="../js/create1.js"></script>
+</body>
+</html>

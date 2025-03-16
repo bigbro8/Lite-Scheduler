@@ -1,0 +1,16 @@
+h2{
+    text-align: center;
+}
+
+body{
+    background-image: white;
+    height: 690px;
+}
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 670px;
+}

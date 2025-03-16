@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/result.css">
+</head>
+<body>
+  <div class="buttons">
+    <button id="save">
+      ذخیره ی برنامه
+    </button>
+    <button id="rescheduling">
+      برنامه ریزی مجدد
+    </button>
+    <button id="back">
+      مرحله قبلی
+    </button>
+    <button id="home">
+      بازگشت به خانه
+    </button>
+    <button id="home">
+      تاریخچه
+    </button>
+  </div>
+  <div class="tab">
+    <table class="presence"  dir="rtl">
+        <tr>
+          <td class="total"></td>
+          <td class="days day-0">شنبه</td>
+          <td class="days day-1">یکشنبه</td>
+          <td class="days day-2">دوشنبه</td>
+          <td class="days day-3">سه شنبه</td>
+          <td class="days day-4">چهارشنبه</td>
+        </tr>
+        <tr>
+          <td class="sec">sec 1</td>
+          <td id="s01" class="section"></td>
+          <td id="s11" class="section"></td>
+          <td id="s21" class="section"></td>
+          <td id="s31" class="section"></td>
+          <td id="s41" class="section"></td>
+        </tr>
+        <tr>
+          <td class="sec">sec 2</td>
+          <td id="s02" class="section"></td>
+          <td id="s12" class="section"></td>
+          <td id="s22" class="section"></td>
+          <td id="s32" class="section"></td>
+          <td id="s42" class="section"></td>
+        </tr>
+        <tr>
+          <td class="sec">sec 3</td>
+          <td id="s03" class="section"></td>
+          <td id="s13" class="section"></td>
+          <td id="s23" class="section"></td>
+          <td id="s33" class="section"></td>
+          <td id="s43" class="section"></td>
+        </tr>
+        <tr>
+          <td class="sec">sec 4</td>
+          <td id="s04" class="section"></td>
+          <td id="s14" class="section"></td>
+          <td id="s24" class="section"></td>
+          <td id="s34" class="section"></td>
+          <td id="s44" class="section"></td>
+        </tr>
+        
+        <tr>
+          <td class="sec">sec 5</td>
+          <td id="s05" class="section"></td>
+          <td id="s15" class="section"></td>
+          <td id="s25" class="section"></td>
+          <td id="s35" class="section"></td>
+          <td id="s45" class="section"></td>
+        </tr>
+    </table>
+    </div>
+    <div class="options">
+      <div class="oedisplay" dir="rtl" style="margin-right: 20px;">
+        <p>نمایش هفته زوج یا فرد</p>
+        <input type="radio" id="odisplay" class="oddEdis" name="oddEdis" value="o">
+        <label for="odisplay">نمایش روزهای فرد</label><br>
+        <input type="radio" id="edisplay" class="oddEdis" name="oddEdis" value="e">
+        <label for="edisplay">نمایش روزهای زوج</label><br>
+        <input type="radio" id="both" class="oddEdis" name="oddEdis" value="b">
+        <label for="">هردو</label><br>
+      </div>
+      <div class="delimiter"></div>
+      <div class="moreinfos" dir="rtl" style="margin-right: 20px;">
+        <p>نمایش اطلاعات بیشتر</p>
+        <input type="checkbox" id="termnum">
+        <label for="termnum">نمایش شماره ترم دروس</label><br>
+        <input type="checkbox" id="group">
+        <label for="group">نمایش گروه دروس</label>
+      </div>
+      <div class="delimiter"></div>
+      <div class="chooseteachers">
+        <div class="centerit" style="width:100%;display: flex;justify-content: center;">
+          <input type="checkbox" name="teacherDisplay" id="teacherDisplay">
+          <p style="display: inline;">نمایش برنامه یک استاد</p>
+        </div>
+        <div class="teachers"></div>
+      </div>
+    </div>
+    <div class="container">
+      <form action="" id="form-id">
+
+      
+      <div class="part1" dir="rtl">
+          <p>نوع الگوریتم مورد استفاده را انتخاب کنید</p>
+          <div class="radio-b">
+              <div class="in1">
+                  <label for="random">احتمالی</label>
+                  <input type="radio" id="random" name="algorithm" class="algorithm" value="r">
+              </div>
+              <div class="in2">
+                  <label for="certain">قطعی</label>
+                  <input type="radio" id="certain" name="algorithm" class="algorithm" value="c">
+              </div>
+          </div>
+  </div>
+
+  <div class="part2">
+      <p>مقدار تکرار الگوریتم را وارد کنید</p>
+      <div class="iteration">
+          <input type="number" class="iter">
+      </div>
+  </div>
+  <button type="submit" class="submit">تایید</button>
+</form>
+<button type="click" class="close" >بازگشت</button>
+  </div>
+
+
+  <div class="alert-box1" dir="rtl">
+      <div class="alert-container">
+          <h3 style="margin-right: 20px;">آیا برای بازگشت مطمعن هستید؟</h3>
+          <div class="alert-button homeButton">
+          <p>بازگشت</p>
+      </div>
+          <div class="alert-button cancel1">
+          <p>لغو</p>
+          </div>
+      </div>
+      </div>
+    <script src="../js/result.js"></script>
+    
+</body>
+</html>

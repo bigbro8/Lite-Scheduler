@@ -1,0 +1,67 @@
+@import "general.css";
+
+body{
+    height: 605px;
+}
+
+.container{
+    width: 400px;
+    height: auto;
+    background:rgb(205, 208, 229, 40%);
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:100px;
+    padding-block:10px ;
+}
+
+.part1{
+    padding: 10px;
+    width: 90%;
+    height: 100px;
+    background:rgba(155, 187, 255, 0.6);   
+    border-radius: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+p{
+    text-align: center;
+}
+
+.part2{
+    display: none;
+    margin-top: 60px;
+    padding: 10px;
+    width: 90%;
+    height: 100px;
+    background:rgba(155, 187, 255, 0.6);    
+    border-radius: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.radio-b{
+    display: flex;
+    justify-content: space-around;
+}
+
+.iteration{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.submit{
+    height: 35px;
+    width: 70px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+

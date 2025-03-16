@@ -1,0 +1,206 @@
+@import "general.css";
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    height:700px;
+}
+
+
+.form{
+    position: relative;
+    width: 800px;
+    height: 650px;
+    background:rgb(205, 208, 229, 20%);
+    margin: 20px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.records{
+    position: relative;
+    display: grid;
+    justify-content: center;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: black rgb(205, 208, 229, 20%);
+    width: 400px;
+    height: 650px;
+    background:rgb(205, 208, 229, 20%);
+    margin: 20px;
+    border-radius: 20px;
+}
+
+
+
+.delimiter{
+    width: 300px;
+    height: 1px;
+    background-color: black;
+    margin-right: auto;
+    margin-left: auto;
+    margin-block: 20px;
+}
+
+
+.hordel{
+    height: 400px;
+    width: 1px;
+    background-color: black;
+}
+
+
+.radio-b{
+    display: flex;
+    justify-content: center;
+}
+
+.inputs{
+    height: 600px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+
+.record{
+    margin-top: 50px;
+}
+
+.rec{
+    width: 300px;
+    height: 80px;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background:rgba(37, 37, 39, 0.3);
+    border-radius: 20px;
+
+}
+
+
+.rec span{
+    padding-inline: 20px;
+}
+
+.delete{
+    width: 30px;
+    padding-inline: 20px;
+    cursor: pointer;
+}
+
+
+
+input[type=text]{
+    width: 300px;
+    height: 30px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.work-time{
+    width: 300px;
+    height: 300px;
+    background-color: antiquewhite;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+.part22{
+    display: none; 
+}
+
+
+.presence {
+    width: 300px;
+    height: 300px;
+    border-collapse: collapse;
+    border: 1px solid #000000;
+}
+
+.presence td {
+    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #000000;
+}
+
+
+.sec{
+    cursor:cell;
+    background-color: antiquewhite;
+}
+
+.selected{
+    background-color: rgba(98, 98, 255, 0.3);
+}
+
+
+.presence th {
+    background-color: #000000;
+    font-weight: bold;
+    text-align: left;
+}
+
+
+.sectionsT {
+    width: 350px;
+    height: 150px;
+    border-collapse: collapse;
+    border: 1px solid #000000;
+}
+
+
+.sectionsT td {
+    cursor: pointer;
+    padding: 20px;
+    border: 1px solid #000000;
+}
+
+.sectionsT th {
+    background-color: #000000;
+    font-weight: bold;
+    text-align: left;
+}
+
+
+.tr1 td{
+    cursor: auto;
+}
+
+.submit{
+    height: 35px;
+    width: 70px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    border-radius: 10px;
+}
+
+
+
+h2{
+    position: absolute;
+    right: 10px;
+}
+
+.delall{
+    position: absolute;
+    cursor: pointer;
+    width: 70px;
+    height: 30px;
+    left: 20px;
+    top: 20px;
+    border-radius: 10px;
+
+}
+
+
+
+
+

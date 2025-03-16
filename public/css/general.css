@@ -1,0 +1,109 @@
+@font-face {
+    font-family: vazir;
+    font-style: normal;
+    font-weight: 100;
+    src: "../fonts/inner/vazir/Vazir-Thin.eot";
+    src: "../fonts/inner/vazir/Vazir-Thin.woff" format("woff"),
+      "../fonts/inner/vazir/Vazir-Thin.ttf" format("ttf"),
+      "../fonts/inner/vazir/Vazir-Thin.woff2" format("woff2");
+  }
+  
+  
+  @font-face {
+    font-family: bvazir;
+    font-style: normal;
+    font-weight: 100;
+    src: "../fonts/inner/vazir/Vazir-Bold.woff" format("woff");
+  }
+  
+
+p{
+    font-family: 'vazir', sans-serif;
+}
+
+h1,
+h2,
+h3{
+    font-family: 'bvazir', sans-serif;
+
+}
+
+body{
+    background-image: linear-gradient(to bottom right, rgb(14, 30, 81), rgb(221, 194, 244));
+}
+
+
+.nav-button{    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 80px;
+  height: 40px;
+  background: rgb(101, 86, 161);
+  position: absolute;
+  bottom: 30px;
+  cursor: pointer;
+
+}
+
+.nav-button:hover{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgb(126, 77, 224);
+}
+
+
+.next{
+  right: 20px;
+}
+
+
+.prev{
+  left: 20px;
+}
+
+
+.alert-box,
+.alert-box1,
+.alert-box2{
+    display: none;
+    position: absolute;
+    width: 500px;
+    height: 200px;
+    top: 20%;
+    right: 35%;
+    background-color: rgb(93, 88, 239);
+    border-radius: 20px;
+}
+
+.alert-continer{
+    position: relative;
+}
+
+.alert-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    background-color: rgb(43, 43, 83);
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+}
+
+
+
+.cancel1{
+    left: 100px;
+}
+
+.cancel2{
+    left: 10px;
+}
+
+.left{
+  left: 100px;
+}
