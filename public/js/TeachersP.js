@@ -37,42 +37,27 @@ updateRecords();
 
 
 
+async function updateRecords(){
+    try{
+        const response = await fetch('http://127.0.0.1:5500/TeachersP/getTeachers');
+        if(!response.ok){
+            throw new Error(`http error: Status ${response.status}`);
+        }
+        const data = response.json();
 
-function updateRecords(){
-    let list = makeList();
-    if(list[0]!==null){
-        list.forEach((element)=>{
-            makeRecords(element.name,element.tid);
-        })
+        data.forEach(record => {
+            makeRecords(record.name,element.tid)
+        });
+
+    }catch(Error){
+        console.Error('error:',Error);
     }
 }
 
 
 
 
-function makeList(){
-    let list = "["+localStorage.getItem("teachers")+"]";
-    list = JSON.parse(list);
-    return list
-}
 
-
-function deleteRecord(thisId){
-    let list = makeList();
-    let temp = "";
-    for(let i = 0;i<list.length;i++){
-        if(list[i].tid === thisId){
-            continue;}
-        temp+=JSON.stringify(list[i])+",";
-    }
-    temp = temp.slice(0,temp.length-1);
-    if(temp.length !== 0){
-        localStorage.setItem("teachers",temp);
-    }else{
-        localStorage.removeItem("teachers");
-        localStorage.setItem("tid","t1");
-    }
-}
 
 
 function toggleArray(array, value) {
@@ -157,13 +142,32 @@ function processWorkTime2(arr){
 
 }
 
-
-
-
-delall.addEventListener("click",()=>{
-    localStorage.clear();
-    location.reload();
-})
+//data manipulation section (store and delete)
+async function postData(dn,n,wt) {
+    try {
+      const response = await fetch('http://127.0.0.1:5500/TeachersP', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name:n,
+          timing:time,
+          Daynumber:dn,
+          wt: wt,
+          prefers:orien,
+          gapPenalty:document.querySelector("#gapPenalty").checked
+        })
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
 
 
 
@@ -174,21 +178,39 @@ form.addEventListener("submit",(e)=>{
     const lastName = lname.value;
     const fullName = firstName+" "+lastName;
     const wt = time==="explicit"? processWorkTime1(work_times): processWorkTime2(secti);
-    let id_ = localStorage.getItem("tid");
-    let teacher = {tid:id_,name:fullName,timing:time,Daynumber:Daynumber,wt:wt,prefers:orien,gapPenalty:document.querySelector("#gapPenalty").checked,courses:[]};
-    let teachers = localStorage.getItem("teachers")===null ? JSON.stringify(teacher) : localStorage.getItem("teachers")+","+ JSON.stringify(teacher);
     if(validation(firstName,lastName)){
-        localStorage.setItem("teachers",teachers);
-        id_ ="t"+(Number(id_.slice(1,id_.length))+1);
-        localStorage.setItem("tid",id_);
+        postData(Daynumber,fullName,wt);
         work_times = [];
         location.reload();
     }
 })
 
 
+async function deleteRecord(Id){
+    try{
+        const response = await fetch(`http://127.0.0.1:5500/Teachers/${Id}`,{
+            method:'DELETE'
+        });
+
+        if(!response.ok){
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        console.log(`Teacher with id:${Id} Deleted succesfully`)
+
+    }catch(error){
+        console.error('Error:',error)
+    }
+
+}
 
 
+
+
+
+
+
+//ui related code
 teacherTiming.forEach(element =>{
     element.addEventListener("click",()=>{
         if(element.value === "implicit"){
@@ -244,6 +266,13 @@ days.forEach(day=>{
             }
         }
     })
+})
+
+
+
+delall.addEventListener("click",()=>{
+    localStorage.clear();
+    location.reload();
 })
 
 
