@@ -23,7 +23,6 @@ let work_times = [];
 let secti = [];
 let time = "explicit";
 let orien = "no-pre";
-console.log(localStorage.getItem("teachers"));
 
 if(localStorage.getItem("tid")===null){
     localStorage.setItem("tid","t1");
@@ -102,10 +101,14 @@ function makeRecords(name,id){
     div.appendChild(span);
     record.appendChild(div);
     div.id = id;
-    img.addEventListener("click",()=>{
-        deleteRecord(id);
-        div.remove();
-        location.reload();
+    img.addEventListener("click",async ()=>{
+        try{
+            await deleteRecord(id);
+            div.remove();
+            location.reload();
+        }catch(error){
+            console.error('Error:',error);
+        }
     });
 
 }
@@ -181,7 +184,7 @@ async function postData(dn,n,wt) {
 
 
 
-form.addEventListener("submit",(e)=>{
+form.addEventListener("submit",async (e)=>{
     e.preventDefault();
     console.log("push submitted");
     const Daynumber = Number(document.querySelector("#dayNumber").value);
@@ -190,16 +193,21 @@ form.addEventListener("submit",(e)=>{
     const fullName = firstName+" "+lastName;
     const wt = time==="explicit"? processWorkTime1(work_times): processWorkTime2(secti);
     if(validation(firstName,lastName)){
-        postData(Daynumber,fullName,String(wt));    
+        try{
+        await postData(Daynumber,fullName,JSON.stringify(wt));    
         work_times = [];
+        form.reset();
+        location.reload();}
+        catch(error){
+            console.error('Error:',error);
+        }
     }
-    updateRecords();
 })
 
 
 async function deleteRecord(Id){
     try{
-        const response = await fetch(`http://localhost:5000/Teachers/${Id}`,{
+        const response = await fetch(`http://localhost:5000/TeachersP/${Id}`,{
             method:'DELETE'
         });
 
@@ -281,9 +289,21 @@ days.forEach(day=>{
 
 
 
-delall.addEventListener("click",()=>{
-    localStorage.clear();
-    location.reload();
+delall.addEventListener("click",async ()=>{
+    try{
+        const response = await fetch('http://localhost:5000/TeachersP',{
+            method:'DELETE'
+        });
+        if(!response.ok){
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        alert("All records are deleted successfully");
+        location.reload();
+
+    }
+    catch(error){
+        console.error("error:",error)
+    }
 })
 
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const {createTeacher,deleteTeacher,getAllTeachers} = require("../controllers/TeachersP_Contro");
+const {createTeacher,deleteTeacher,getAllTeachers, deleteAll} = require("../controllers/TeachersP_Contro");
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ router.get('/TeachersP', (req,res)=>{
 router.get('/TeachersP/getTeachers',getAllTeachers);
 
 router.delete('/TeachersP/:id',deleteTeacher);
+router.delete('/TeachersP',deleteAll);
 
 router.post('/TeachersP',createTeacher);
 

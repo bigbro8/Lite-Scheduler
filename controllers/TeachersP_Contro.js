@@ -47,7 +47,24 @@ const deleteTeacher = async (req,res) =>{
 }
 
 
+const deleteAll = async (req,res) =>{
+    try{
+        const deleteAll = await Teachers.destroy({ where: {} });
+    
+
+    if(!deleteAll){
+        return res.status(404).json({ error:'record not found'});
+    }
+    res.status(200).json({message:`All records are deleted succesfully`});
+
+    }
+    catch(error){
+        console.error("error:",error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+    }
 
 
 
-module.exports ={createTeacher,deleteTeacher,getAllTeachers};
+
+module.exports ={createTeacher,deleteTeacher,getAllTeachers,deleteAll};
