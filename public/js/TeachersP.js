@@ -39,18 +39,18 @@ updateRecords();
 
 async function updateRecords(){
     try{
-        const response = await fetch('http://127.0.0.1:5500/TeachersP/getTeachers');
+        const response = await fetch('http://localhost:5000/TeachersP/getTeachers');
         if(!response.ok){
             throw new Error(`http error: Status ${response.status}`);
         }
-        const data = response.json();
+        const data = await response.json();
 
         data.forEach(record => {
-            makeRecords(record.name,element.tid)
+            makeRecords(record.name, record.tid);
         });
 
-    }catch(Error){
-        console.Error('error:',Error);
+    }catch(error){
+        console.error('error:', error);
     }
 }
 
@@ -142,23 +142,33 @@ function processWorkTime2(arr){
 
 }
 
+
+function makeTimingValueBolean(time){
+    if(time === "explicit") return true;
+    else return false;
+}
+
+
+
+
 //data manipulation section (store and delete)
 async function postData(dn,n,wt) {
+    let timing = makeTimingValueBolean(time);
     try {
-      const response = await fetch('http://127.0.0.1:5500/TeachersP', {
-        method: 'POST',
+          const response = await fetch('http://localhost:5000/TeachersP',{
+        method:'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           name:n,
-          timing:time,
+          timing:timing,
           Daynumber:dn,
           wt: wt,
           prefers:orien,
           gapPenalty:document.querySelector("#gapPenalty").checked
         })
-      });
+    });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -173,22 +183,23 @@ async function postData(dn,n,wt) {
 
 form.addEventListener("submit",(e)=>{
     e.preventDefault();
+    console.log("push submitted");
     const Daynumber = Number(document.querySelector("#dayNumber").value);
     const firstName = fname.value;
     const lastName = lname.value;
     const fullName = firstName+" "+lastName;
     const wt = time==="explicit"? processWorkTime1(work_times): processWorkTime2(secti);
     if(validation(firstName,lastName)){
-        postData(Daynumber,fullName,wt);
+        postData(Daynumber,fullName,String(wt));    
         work_times = [];
-        location.reload();
     }
+    updateRecords();
 })
 
 
 async function deleteRecord(Id){
     try{
-        const response = await fetch(`http://127.0.0.1:5500/Teachers/${Id}`,{
+        const response = await fetch(`http://localhost:5000/Teachers/${Id}`,{
             method:'DELETE'
         });
 
