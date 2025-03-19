@@ -5,7 +5,7 @@ const {createTeacher,deleteTeacher,getAllTeachers} = require("../controllers/Tea
 const router = express.Router();
 
 router.get('/TeachersP', (req,res)=>{
-    res.sendFile(path.join(__dirname, '../public/html/create1.html'))
+    res.sendFile(path.join(__dirname, '../public/html/TeachersP.html'))
 });
 
 router.get('/TeachersP/getTeachers',getAllTeachers);
@@ -13,3 +13,5 @@ router.get('/TeachersP/getTeachers',getAllTeachers);
 router.delete('/TeachersP/:id',deleteTeacher);
 
 router.post('/TeachersP',createTeacher);
+
+module.exports = router;
