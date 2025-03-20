@@ -4,7 +4,7 @@ const path = require("path");
 require('dotenv').config();
 
 const sequelize = require('./config/database');
-const TeachersRoutes = require('./routes/TeachersP_Rou');
+const Routes = require('./routes/routes');
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', TeachersRoutes);
+app.use('/', Routes);
 
 const PORT = process.env.PORT || 5000;
 console.log(PORT);

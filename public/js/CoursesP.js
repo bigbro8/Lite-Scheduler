@@ -35,17 +35,10 @@ let hours;
 
 
 
-// localStorage.removeItem("courses");
 
 
 
 
-// console.log(localStorage.getItem("courses"));
-if(localStorage.getItem("cid")===null){
-    localStorage.setItem("cid","c1");
-}
-
-console.log(makeList("courses"))
 
 updateTeacherRecords();
 updateCourse();

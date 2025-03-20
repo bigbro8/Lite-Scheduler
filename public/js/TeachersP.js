@@ -43,7 +43,6 @@ async function updateRecords(){
             throw new Error(`http error: Status ${response.status}`);
         }
         const data = await response.json();
-
         data.forEach(record => {
             makeRecords(record.name, record.tid);
         });
@@ -331,8 +330,18 @@ cancel2.addEventListener('click',()=>{
     alertBox2.style.display = "none";
 })
 
-next.addEventListener("click",()=>{
-    if(localStorage.getItem("teachers")===null) alertBox2.style.display = "block";
-    else window.location.replace("./defineG.html");
+next.addEventListener("click",async ()=>{
+    try{
+        const response = await fetch('http://localhost:5000/TeachersP/getTeachers');
+        if(!response.ok){
+            throw new Error(`http error: Status ${response.status}`);
+        }
+        const data = await response.json();
+        if(data.length===0) alertBox2.style.display = "block";
+        else window.location.replace("./defineG");
+    }
+    catch(error){
+        console.error('error:',error);
+    }
 })
 

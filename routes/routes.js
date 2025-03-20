@@ -1,29 +1,28 @@
 const express = require("express");
 const path = require("path");
+const {createTeacher,deleteTeacher,getAllTeachers, deleteAll} = require("../controllers/TeachersP_Contro");
 
 const router = express.Router();
 
-router.get('/create1', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/html/create1.html'));
-});
-
-router.get('/defineG', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/html/create1.html'));
-});
-
-router.get('/create2', (req, res) => {
-res.sendFile(path.join(__dirname, '../public/html/create2.html'));
-});
 
 
-router.get('/logicconf', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../public/html/logicconf.html'));
+// TeachersP route handling
+router.get('/TeachersP', (req,res)=>{
+    res.sendFile(path.join(__dirname, '../public/html/TeachersP.html'))
 });
-    
-router.get('/loading', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../public/html/loading.html'));
+router.get('/TeachersP/getTeachers',getAllTeachers);
+router.delete('/TeachersP/:id',deleteTeacher);
+router.delete('/TeachersP',deleteAll);
+router.post('/TeachersP',createTeacher);
+
+
+router.get('/defineG', (req,res)=>{
+    res.sendFile(path.join(__dirname, '../public/html/defineG.html'))
 });
 
-router.get('/result', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../public/html/result.html'));
+router.get('/CoursesP',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../public/html/CoursesP.html'))
 });
+
+
+module.exports = router;

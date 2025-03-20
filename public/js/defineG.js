@@ -95,10 +95,11 @@ form.addEventListener("submit",(e)=>{
 
 
 prev.addEventListener('click',()=>{
-    window.location.replace("./create1.html");
+    window.location.replace("./TeachersP");
 })
 
 
 next.addEventListener("click",()=>{
-    window.location.replace("./create2.html");
+    if(localStorage.getItem("groups")===null) alert("enter at least one group");
+    else window.location.replace("./CoursesP");
 })
