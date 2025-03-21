@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const teachersDiv = document.querySelector(".teachers");
 const prerequirement = document.querySelector(".prereqs");
 const record = document.querySelector(".record");
@@ -52,7 +54,6 @@ function teacherCourses(teacher){
             myList.push(list[i]);
     }
     return myList;
-
 }
 
 function teacherSections(teacherId){
@@ -106,6 +107,7 @@ function courseNumberValidation(teacher,oddEven,hours){
 
 function updateGroups(){
     let list = makeList("groups");
+    console.log(list);
     let counter = 0;
     list.forEach(element=>{
         let option = document.createElement("option");
@@ -124,12 +126,21 @@ function updateGroups(){
 }
 
 
-function updateTeacherRecords(){
-    let list = makeList("teachers");
-    if(list[0]!==null){
-        list.forEach((element)=>{
-            makeTeacherRecords(element.name,element.tid);
-        })
+async function updateTeacherRecords(){
+    try{
+        const response = await fetch("http://localhost:5000/TeachersP/getTeachers");
+        if(!response.ok){
+            throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        let list = data;
+        if(list[0]!==null){
+            list.forEach((element)=>{
+                makeTeacherRecords(element.name,element.tid);
+            })
+    }}
+    catch(error){
+        console.log('error: ',error);
     }
 }
 
@@ -238,11 +249,12 @@ delall.addEventListener("click",()=>{
 
 
 function makeTeacherRecords(name,id){
+    let newId = `t${id}`;
     const div = document.createElement("div");
     const p = document.createElement("p");
     p.appendChild(document.createTextNode(name))
     div.classList.add("teacher");
-    div.id = id;
+    div.id = newId;
     div.appendChild(p);
     teachersDiv.appendChild(div);
     div.addEventListener("click",()=>{
@@ -312,13 +324,13 @@ function makeCoursesRecords(id,name,teachername1){
 
 }
 
-function validation(name,radio,selectedTeacher,oddEven,hours){
+function validation(name,selectedTeacher,oddEven,hours){
     if(name.length === 0){
         alert("لطفا نام درس را وارد کنید");
         return false;
     }
 
-    if(!radio){
+    if(!hours){
         alert("لطفا تعداد ساعات درس را وارد کنید");
         return false;
     }
@@ -364,32 +376,20 @@ function chooseOddEven(){
 
 
 
-form.addEventListener("submit",(e)=>{
+
+
+form.addEventListener("submit",async (e)=>{
     e.preventDefault();
-    let radio = document.querySelector('input[name="hours"]:checked')?document.querySelector('input[name="hours"]:checked').value :null;
+    let typesOfHours = document.querySelector('input[name="hours"]:checked')?document.querySelector('input[name="hours"]:checked').value :null;
     let name = document.querySelector('#course-name').value;
     let term = document.querySelector("#itsterm");
-    let oddEvenn = radio==="eo"?document.querySelector('#OddEven').value:undefined;
-    let courseInstance;
-    let id_ = localStorage.getItem("cid");
-    let iter = 1;
-    if(radio === "3h" || radio === "eo")
-        iter =2;
-    if(validation(name,radio,selectedTeacher,oddEvenn,radio)){
+    let oddEvenn = typesOfHours==="eo"?document.querySelector('#OddEven').value:undefined;
+    let tempOddEven = undefined;
+    let iter = (typesOfHours === "3h" || typesOfHours === "eo")?2:1;
+    if(validation(name,selectedTeacher,oddEvenn,typesOfHours)){
     for(let i = 0;i<iter;i++){
-        if(i === 0){
-            if(isfix.checked){
-                let day = document.querySelector("#day1");
-                let fixsection = document.querySelector("#fixsection1");
-                courseInstance = {cid:id_,courseName:name,semester:Number(term.value),isfix:isfix.checked,oddEven:undefined,major:"mutual",day:Number(day.value),section:Number(fixsection.value)-1};
-            }else
-                courseInstance = {cid:id_,courseName:name,semester:Number(term.value),oddEven:undefined,major:group.value,isfix:isfix.checked,teacher:selectedTeacher,prereqs:selectedCourse};
-            let coursesList = localStorage.getItem("courses")===null ? JSON.stringify(courseInstance) : localStorage.getItem("courses")+","+ JSON.stringify(courseInstance);
-            localStorage.setItem("courses",coursesList);
-            location.reload();
-            }
-        else{
-            let ids = localStorage.getItem("cid")+"s";
+        if(i === 1){
+            tempOddEven = oddEvenn;
             if(oddEvenn){
                 if(oddEvenn === "o")
                     name = name + "/فرد";
@@ -397,28 +397,55 @@ form.addEventListener("submit",(e)=>{
                     name = name + "/زوج";
             }else
                 name = name + "/کلاس دوم";
-            if(isfix.checked){
-                let day = document.querySelector("#day2");
-                let fixsection = document.querySelector("#fixsection2");
-                courseInstance = {cid:ids,courseName:name,semester:Number(term.value),isfix:isfix.checked,oddEven:oddEvenn,major:"mutual",day:Number(day.value),section:Number(fixsection.value)-1};
-            }else
-                courseInstance = {cid:ids,courseName:name,semester:Number(term.value),oddEven:oddEvenn,major:group.value,isfix:isfix.checked,teacher:selectedTeacher,prereqs:selectedCourse};
-            let coursesList = localStorage.getItem("courses")===null ? JSON.stringify(courseInstance) : localStorage.getItem("courses")+","+ JSON.stringify(courseInstance);
-            localStorage.setItem("courses",coursesList);
-            location.reload();
         }
+        try{
+            let response;
+            if(isfix.checked){
+                response = await fetch("localhost:5000/insertFixCourse",{
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify({
+                        courseName:name,
+                        semester:term.value,
+                        oddEven:tempOddEven,
+                        major:"mutual",
+                        day:Number(document.querySelector('#day1').value),
+                        section:Number(document.querySelector('#fixsection1').value)-1
+                    })
+                });
 
-    }
+            }else{
+                response = await fetch("localhost:5000/insertCourse",{
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify({
+                        courseName:name,
+                        semester:term.value,
+                        oddEven:tempOddEven,
+                        major:group.value,
+                        teacher:selectedTeacher,
+                        prereqs:selectedCourse,
+                    })
+                });
+            }
+
+            if(!response.ok){
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+        }
+        catch(error){
+            console.error('error: ',error);
+        }}
 
     updatePrereq(id_,selectedCourse);
-    id_ ="c"+(Number(id_.slice(1))+1);
-    localStorage.setItem("cid",id_);
     selectedTeacher = null;
     selectedCourse = {};
-
-}
-
-})
+}})
 
 
 
