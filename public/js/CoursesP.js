@@ -156,7 +156,7 @@ async function updateCourse(){
         if(data.length!==0){
             for(let i = 0;i<data.length;i++){
                 if(!data[i].isSecond){
-                let teacher_name = data[i].Teacher.name;
+                let teacher_name = data[i].Teacher ? data[i].Teacher.name : undefined ;
                 makeCourses(data[i].id,data[i].coursename,teacher_name);
                 makeCoursesRecords(`c${data[i].id}`,data[i].coursename,teacher_name);
                 }
@@ -177,7 +177,7 @@ async function deleteRecord(Id){
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        console.log(`Teacher with id:${Id} Deleted succesfully`)
+        console.log(`Course with id:${Id} Deleted succesfully`);
 
     }catch(error){
         console.error('Error:',error)
@@ -374,8 +374,23 @@ async function validation(name,selectedTeacher,oddEven,hours){
         if(!teacherCapacity){
             alert("مقدار دروس وارد شده بیشتر از زمان حضور استاد است");
             return false;
+        }}
+        
+    console.log(isfix.checked);
+    if(isfix.checked){
+        let day = document.querySelector(`#day1`).value;
+        let section=document.querySelector(`#fixsection1`).value;
+        console.log(day,section);
+        if(!day){
+            alert("لطفا روز کلاس را وارد کنید");
+            return false;
         }
-}
+        if(!section){
+            alert("لطفا شماره کلاس را وارد کنید");
+            return false;
+        }
+
+    }
     return true;
 }
 
@@ -415,10 +430,9 @@ form.addEventListener("submit",async (e)=>{
     let tempOddEven = undefined;
     let iter = (typesOfHours === "3h" || typesOfHours === "eo")?2:1;
     let isSec = false;
-    //validation should be rewritten
     let resultOfValidation = await validation(name,selectedTeacher,oddEvenn,typesOfHours);
     if(resultOfValidation){
-    for(let i = 0;i<iter;i++){
+        for(let i = 0;i<iter;i++){
         if(i === 1){
             tempOddEven = makeOddEvenBoolen(oddEvenn);
             isSec = true;
@@ -426,18 +440,18 @@ form.addEventListener("submit",async (e)=>{
                 if(oddEvenn === "o")
                     name = name + "/فرد";
                 else
-                    name = name + "/زوج";
-            }else
-                name = name + "/کلاس دوم";
-        }
-        try{
-            let response;
-            if(isfix.checked){
-                let day = Number(document.querySelector(`#day${i+1}`).value);
-                let section=Number(document.querySelector(`#fixsection${i+1}`).value)-1;
-                response = await fetch("http://localhost:5000/insertFixCourse",{
-                    method:'POST',
-                    headers:{
+                name = name + "/زوج";
+        }else
+        name = name + "/کلاس دوم";
+    }
+    try{
+        let response;
+        if(isfix.checked){
+            let day = Number(document.querySelector(`#day${i+1}`).value);
+            let section=Number(document.querySelector(`#fixsection${i+1}`).value)-1;
+            response = await fetch("http://localhost:5000/insertFixCourse",{
+                method:'POST',
+                headers:{
                         'Content-Type':'application/json'
                     },
                     body:JSON.stringify({
@@ -467,7 +481,6 @@ form.addEventListener("submit",async (e)=>{
                     })
                 });
             }
-            console.log(response);
             if(!response.ok){
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

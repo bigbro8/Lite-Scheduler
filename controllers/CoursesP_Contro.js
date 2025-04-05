@@ -55,7 +55,7 @@ const deleteCourse = async (req,res) =>{
         }
         nextID = id+1
         const nextRecord = await Courses.findByPk(nextID);
-        if(nextRecord.isSecond){
+        if(nextRecord && nextRecord.isSecond){
             const deleteSecondCourse =await Courses.destroy({ where: {id:nextID} });
             if(!deleteSecondCourse){
                 return res.status(404).json({ error:'record not found'});
