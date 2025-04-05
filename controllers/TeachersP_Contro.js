@@ -1,4 +1,5 @@
 const Teachers = require('../models/Teachers');
+const Course = require('../models/Courses');
 
 const createTeacher = async (req,res) =>{
     try{
@@ -25,6 +26,18 @@ const getAllTeachers = async (req,res) =>{
 }
 
 
+const getOneTeacher = async (req,res) =>{
+    try{
+        const teacher = await Teachers.findByPk(req.params.id,{include:Course});
+        if(!teacher){
+            return res.status(404).json({ error:'record not found'});
+        }
+        res.status(200).json(teacher);
+    }catch(error){
+        console.error('Error:',error);
+    }
+}
+
 
 
 const deleteTeacher = async (req,res) =>{
@@ -47,7 +60,7 @@ const deleteTeacher = async (req,res) =>{
 }
 
 
-const deleteAll = async (req,res) =>{
+const deleteAllTeachers = async (req,res) =>{
     try{
         const deleteAll = await Teachers.destroy({ where: {} });
     
@@ -67,4 +80,4 @@ const deleteAll = async (req,res) =>{
 
 
 
-module.exports ={createTeacher,deleteTeacher,getAllTeachers,deleteAll};
+module.exports ={createTeacher,deleteTeacher,getAllTeachers,deleteAllTeachers,getOneTeacher};

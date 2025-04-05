@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 const teachersDiv = document.querySelector(".teachers");
 const prerequirement = document.querySelector(".prereqs");
 const record = document.querySelector(".record");
@@ -37,8 +35,9 @@ let hours;
 
 
 
-
-
+window.onload = function () {
+    document.querySelector("form").reset(); // Resets all form inputs
+};
 
 
 
@@ -46,25 +45,29 @@ updateTeacherRecords();
 updateCourse();
 updateGroups();
 
-function teacherCourses(teacher){
-    let list = makeList("courses");
-    let myList = [];
-    for(let i = 0;i<list.length;i++){
-        if(list[i].teacher === teacher)
-            myList.push(list[i]);
+async function teacherCourses(teacher){
+    try{
+        const Teacher = await fetch("http://localhost:5000/getOneTeacher/"+trimTFromId(teacher));    
+        if(!Teacher.ok){
+            throw new Error("Network response was not ok");
+        }
+        const jsonTeacher = await Teacher.json();
+        console.log(jsonTeacher.Courses);
+        return jsonTeacher.Courses;
+    }catch(error){
+        console.error('error:',error); 
     }
-    return myList;
 }
 
-function teacherSections(teacherId){
-    let teacher = returnTeacher(teacherId);
-    let days = Object.keys(teacher.wt);
-    if(teacher.timing === "implicit")
-       return teacher.wt[days[0]].length*Number(teacher.Daynumber);
+async function teacherSections(teacherId){
+    let teacher = await returnTeacher(teacherId);
+    let days = Object.keys(JSON.parse(teacher.wt));
+    if(!teacher.timing)
+        return teacher.wt[days[0]].length*Number(teacher.Daynumber);
     else{
         let counter =0;
         days.forEach(day=>{
-            counter += teacher.wt[day].length;
+            counter += JSON.parse(teacher.wt)[day].length;
         })
         return counter;
     }
@@ -72,23 +75,22 @@ function teacherSections(teacherId){
 
 
 
-function courseNumberValidation(teacher,oddEven,hours){
-    console.log(teacher)
-    let allCourses = teacherCourses(teacher);
+async function courseNumberValidation(teacher,oddEven,hours){
+    let allCourses = await teacherCourses(teacher);
     let allCoursesNumber = allCourses.length+1;
     var odd = 0;
     var even = 0;
-    if(oddEven === "o"){
+    if(oddEven==='o'){
         odd++;
         allCoursesNumber++;
     }
-    else if(oddEven === "e"){
+    else if(oddEven==='e'){
         even++;
         allCoursesNumber++;
     }
     else if(hours ==="3h"){
         allCoursesNumber ++;
-    }
+    }    
     for(let i=0;i<allCourses.length;i++){
         if(allCourses[i].oddEven === "o") odd++;
         else if(allCourses[i].oddEven === "e") even++;
@@ -96,7 +98,8 @@ function courseNumberValidation(teacher,oddEven,hours){
     let notPaired = Math.abs(odd-even);
     let paired = ((odd+even) - notPaired)/2;
     let occupiedSections = (allCoursesNumber-(odd+even))+notPaired+paired;
-    let sections = teacherSections(teacher);
+    let sections =await teacherSections(teacher);
+    // console.log("sections: ",sections,"occupiedSection: ",occupiedSections,"notPaired: ",notPaired,"paired: ",paired,"allcourses: ",allCoursesNumber,"odd: ",odd,"even: ",even);
     if(sections>=occupiedSections){
         return true;
     }
@@ -107,7 +110,6 @@ function courseNumberValidation(teacher,oddEven,hours){
 
 function updateGroups(){
     let list = makeList("groups");
-    console.log(list);
     let counter = 0;
     list.forEach(element=>{
         let option = document.createElement("option");
@@ -144,34 +146,43 @@ async function updateTeacherRecords(){
     }
 }
 
-function updateCourse(){
-    let list = makeList("courses");
-    if(list[0]!==null){
-        for(let i = 0;i<list.length;i++){
-            if(list[i].cid.slice(-1)!=="s"){
-            let teacher_name = findTeacher(list[i].teacher);
-            makeCourses(list[i].cid,list[i].courseName,teacher_name);
-            makeCoursesRecords(list[i].cid,list[i].courseName,teacher_name);
+async function updateCourse(){
+    try{
+        const response = await fetch('http://localhost:5000/CoursesP/getCourses');
+        if(!response.ok){
+            throw new Error(`http error: Status ${response.status}`);
+        }
+        const data = await response.json();
+        if(data.length!==0){
+            for(let i = 0;i<data.length;i++){
+                if(!data[i].isSecond){
+                let teacher_name = data[i].Teacher.name;
+                makeCourses(data[i].id,data[i].coursename,teacher_name);
+                makeCoursesRecords(`c${data[i].id}`,data[i].coursename,teacher_name);
+                }
             }
         }
+    }catch(error){
+        console.error('error:', error);
     }
 }
 
-function deleteRecord(thisId){
-    let list = makeList("courses");
-    let temp = "";
-    for(let i = 0;i<list.length;i++){
-        if(list[i].cid === thisId || list[i].cid === thisId+"s"){
-            continue;}
-        temp+=JSON.stringify(list[i])+",";
+async function deleteRecord(Id){
+    try{
+        const response = await fetch(`http://localhost:5000/CoursesP/${Id}`,{
+            method:'DELETE'
+        });
+
+        if(!response.ok){
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        console.log(`Teacher with id:${Id} Deleted succesfully`)
+
+    }catch(error){
+        console.error('Error:',error)
     }
-    temp = temp.slice(0,temp.length-1);
-    if(temp.length !== 0){
-        localStorage.setItem("courses",temp);
-    }else{
-        localStorage.removeItem("courses");
-        localStorage.setItem("cid","c1");
-    }
+
 }
 
 
@@ -204,22 +215,19 @@ function toggleArray(array, value) {
 }
 
 
-function findTeacher(id){
-    let list = makeList("teachers");
-    for(let i = 0;i<list.length;i++){
-        if(list[i].tid === id){
-            return list[i].name;
-        }
-    }
-}
 
 
-function returnTeacher(id){
-    let list = makeList("teachers");
-    for(let i = 0;i<list.length;i++){
-        if(list[i].tid === id){
-            return list[i];
+async function returnTeacher(id){
+    try{
+        const teacher = await fetch("http://localhost:5000/getOneTeacher/"+trimTFromId(id));
+        if(!teacher.ok){
+            throw new Error("Network response was not ok");
         }
+        const jsonTeacher = await teacher.json();
+        return jsonTeacher;
+
+    }catch(error){
+        console.log('errorl',error)
     }
 }
 
@@ -238,14 +246,27 @@ teachers.forEach(teacher=>{
 })
 
 
+function trimTFromId(id){
+    return Number(id.substring(1));
+}
 
 
-delall.addEventListener("click",()=>{
-    localStorage.removeItem("courses");
-    localStorage.removeItem("cid");
-    location.reload();
+delall.addEventListener("click",async ()=>{
+    try{
+        const response = await fetch('http://localhost:5000/CoursesP',{
+            method:'DELETE'
+        });
+        if(!response.ok){
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        alert("All records are deleted successfully");
+        location.reload();
+
+    }
+    catch(error){
+        console.error("error:",error)
+    }
 })
-
 
 
 function makeTeacherRecords(name,id){
@@ -314,17 +335,25 @@ function makeCoursesRecords(id,name,teachername1){
     div.appendChild(teacherName);
     div.appendChild(courseName);
     record.appendChild(div);
-    img.addEventListener("click",()=>{
-            deleteRecord(id);
+    img.addEventListener("click",async ()=>{
+        try{
+            await deleteRecord(trimTFromId(id));
             div.remove();
+            if(document.querySelector("."+id))
             document.querySelector("."+id).remove();
             location.reload();
+        }catch(error){
+            console.error('error:',error);}
+
         })
 
 
 }
 
-function validation(name,selectedTeacher,oddEven,hours){
+
+
+
+async function validation(name,selectedTeacher,oddEven,hours){
     if(name.length === 0){
         alert("لطفا نام درس را وارد کنید");
         return false;
@@ -340,10 +369,13 @@ function validation(name,selectedTeacher,oddEven,hours){
         return false;
     }
     }
-    if(!courseNumberValidation(selectedTeacher,oddEven,hours)){
-        alert("مقدار دروس وارد شده بیشتر از زمان حضور استاد است");
-        return false;
-    }
+    if(selectedTeacher && !isfix.checked){
+        let teacherCapacity = await courseNumberValidation(selectedTeacher,oddEven,hours);
+        if(!teacherCapacity){
+            alert("مقدار دروس وارد شده بیشتر از زمان حضور استاد است");
+            return false;
+        }
+}
     return true;
 }
 
@@ -362,20 +394,16 @@ function updatePrereq(thiscid,cids){
 }
 
 
-function chooseOddEven(){
-    let o = Number(localStorage.getItem("oddNum"));
-    let e = Number(localStorage.getItem("evenNum"));
-    if(o<=e){
-        let odd = Number(localStorage.getItem("oddNum"));
-        localStorage.setItem("oddNum",odd+1);
-        return "o";}
-    let even = Number(localStorage.getItem("evenNum"));
-    localStorage.setItem("evenNum",even+1);
-    return "e";
+
+
+function makeOddEvenBoolen(oddEven){
+    if(oddEven === "o")
+        return true;
+    else if(oddEven === "e")
+        return false;
+    else
+        return null;
 }
-
-
-
 
 
 form.addEventListener("submit",async (e)=>{
@@ -386,10 +414,14 @@ form.addEventListener("submit",async (e)=>{
     let oddEvenn = typesOfHours==="eo"?document.querySelector('#OddEven').value:undefined;
     let tempOddEven = undefined;
     let iter = (typesOfHours === "3h" || typesOfHours === "eo")?2:1;
-    if(validation(name,selectedTeacher,oddEvenn,typesOfHours)){
+    let isSec = false;
+    //validation should be rewritten
+    let resultOfValidation = await validation(name,selectedTeacher,oddEvenn,typesOfHours);
+    if(resultOfValidation){
     for(let i = 0;i<iter;i++){
         if(i === 1){
-            tempOddEven = oddEvenn;
+            tempOddEven = makeOddEvenBoolen(oddEvenn);
+            isSec = true;
             if(oddEvenn){
                 if(oddEvenn === "o")
                     name = name + "/فرد";
@@ -401,7 +433,9 @@ form.addEventListener("submit",async (e)=>{
         try{
             let response;
             if(isfix.checked){
-                response = await fetch("localhost:5000/insertFixCourse",{
+                let day = Number(document.querySelector(`#day${i+1}`).value);
+                let section=Number(document.querySelector(`#fixsection${i+1}`).value)-1;
+                response = await fetch("http://localhost:5000/insertFixCourse",{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json'
@@ -410,14 +444,14 @@ form.addEventListener("submit",async (e)=>{
                         courseName:name,
                         semester:term.value,
                         oddEven:tempOddEven,
-                        major:"mutual",
-                        day:Number(document.querySelector('#day1').value),
-                        section:Number(document.querySelector('#fixsection1').value)-1
+                        isSecond:isSec,
+                        major:group.value,
+                        time:`{${day}:${section}}`
                     })
                 });
 
             }else{
-                response = await fetch("localhost:5000/insertCourse",{
+                response = await fetch("http://localhost:5000/insertCourse",{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json'
@@ -426,13 +460,14 @@ form.addEventListener("submit",async (e)=>{
                         courseName:name,
                         semester:term.value,
                         oddEven:tempOddEven,
+                        isSecond:isSec,
                         major:group.value,
-                        teacher:selectedTeacher,
+                        teacher:trimTFromId(selectedTeacher),
                         prereqs:selectedCourse,
                     })
                 });
             }
-
+            console.log(response);
             if(!response.ok){
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -442,10 +477,13 @@ form.addEventListener("submit",async (e)=>{
             console.error('error: ',error);
         }}
 
-    updatePrereq(id_,selectedCourse);
+    // updatePrereq(id_,selectedCourse);
     selectedTeacher = null;
     selectedCourse = {};
-}})
+    location.reload();
+}
+}
+)
 
 
 

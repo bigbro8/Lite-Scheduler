@@ -7,25 +7,37 @@ const Course = sequelize.define("Course",{
         type:DataTypes.STRING,
         allowNull:false
     },
-    isFix:{
-        type:DataTypes.BOOLEAN,
+    semester:{
+        type:DataTypes.INTEGER,
         allowNull:false
+    },
+    oddEven:{
+        type:DataTypes.BOOLEAN,
+        allowNull:true
+    },
+    isSecond:{
+        type:DataTypes.BOOLEAN,
+        allowNull:true
     },
     major:{
         type:DataTypes.STRING,
         allowNull:false
     },
+    time:{
+        type:DataTypes.STRING,
+        allowNull:true
+    },
     prereqs:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:true
     },
-    semester:{
-        type:DataTypes.INTEGER,
-        allowNull:false
-    }
 });
 
-Course.belongsTo(Teacher,{foreignKey:"tid"});
+
+Course.belongsTo(Teacher,{
+    foreignKey:"tid",
+    onDelete:"CASCADE"
+});
 Teacher.hasMany(Course,{foreignKey:"tid"});
 
 module.exports = Course;
