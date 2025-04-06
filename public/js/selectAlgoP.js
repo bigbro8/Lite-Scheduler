@@ -10,7 +10,6 @@ let algo;
 let iteration;
 
 
-console.log(localStorage.getItem("teachers"))
 
 
 algorithm.forEach(el=>{
@@ -45,5 +44,5 @@ form.addEventListener("submit",e=>{
 })
 
 prev.addEventListener("click",()=>{
-    window.location.replace("./create2.html");
+    window.location.replace("./CoursesP");
 })

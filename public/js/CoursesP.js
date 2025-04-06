@@ -375,7 +375,7 @@ async function validation(name,selectedTeacher,oddEven,hours){
             alert("مقدار دروس وارد شده بیشتر از زمان حضور استاد است");
             return false;
         }}
-        
+
     console.log(isfix.checked);
     if(isfix.checked){
         let day = document.querySelector(`#day1`).value;
@@ -536,15 +536,13 @@ oddEvenIn.forEach(element=>{
 })
 
 
-prev.addEventListener('click',()=>{
-    alertBox1.style.display = "block";
-})
+// prev.addEventListener('click',()=>{
+//     alertBox1.style.display = "block";
+// })
 
 
-realprev.addEventListener("click",()=>{
-    localStorage.removeItem("courses");
-    localStorage.removeItem("cid");
-    window.location.replace("./defineG.html");
+prev.addEventListener("click",()=>{
+    window.location.replace("./defineG");
 })
 
 
@@ -556,14 +554,20 @@ cancel2.addEventListener('click',()=>{
     alertBox2.style.display = "none";
 })
 
-next.addEventListener("click",()=>{
-    if(localStorage.getItem("courses") === null){
+next.addEventListener("click",async ()=>{
+    try{
+        const Courses = await fetch("http://localhost:5000/CoursesP/getCourses");
+        const jsonCourses = await Courses.json();
+        if(Object.keys(jsonCourses).length===0)
         alertBox3.style.display = "block";
-    }else alertBox2.style.display = "block";
+        else alertBox2.style.display = "block";
+    }catch(error){
+        console.error("error: ",error);
+    }
 })
 
 confirm.addEventListener("click",()=>{
-    window.location.replace("./logicconf.html");
+    window.location.replace("./selectAlgoP");
 })
 
 confirm3.addEventListener("click",()=>{

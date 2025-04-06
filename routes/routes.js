@@ -40,4 +40,9 @@ router.post('/insertFixCourse',insertFixCourse);
 
 router.post('/insertCourse',insertCourse);
 
+//selectAlgoP route handling
+router.get('/selectAlgoP', (req,res)=>{
+    res.sendFile(path.join(__dirname, '../public/html/selectAlgoP.html'))
+});
+
 module.exports = router;
