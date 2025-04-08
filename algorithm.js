@@ -1161,10 +1161,7 @@ function determineExactTimeForImplicitTeachers(courseList,impteacher){
     }
 }
 
-
-
-function randomInitializer(courseList,impteacher){
-    determineExactTimeForImplicitTeachers(courseList,impteacher);
+function giveEachCourseRandomTime(courseList){
     let newWeek = initializeWeek();
     for(let i = 0;i<courseList.length;i++){
         let thisCourse = courseList[i];
@@ -1186,6 +1183,11 @@ function randomInitializer(courseList,impteacher){
     }
     return newWeek;
 
+}
+
+function randomInitializer(courseList,impteacher){
+    determineExactTimeForImplicitTeachers(courseList,impteacher);
+    return giveEachCourseRandomTime(courseList);
 }
 
 
