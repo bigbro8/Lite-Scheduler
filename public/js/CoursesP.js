@@ -52,7 +52,6 @@ async function teacherCourses(teacher){
             throw new Error("Network response was not ok");
         }
         const jsonTeacher = await Teacher.json();
-        console.log(jsonTeacher.Courses);
         return jsonTeacher.Courses;
     }catch(error){
         console.error('error:',error); 
@@ -376,7 +375,6 @@ async function validation(name,selectedTeacher,oddEven,hours){
             return false;
         }}
 
-    console.log(isfix.checked);
     if(isfix.checked){
         let day = document.querySelector(`#day1`).value;
         let section=document.querySelector(`#fixsection1`).value;

@@ -1,5 +1,7 @@
 const express = require("express");
 const path = require("path");
+const coursw = require("../models/Courses");
+const teasw = require("../models/Teachers");
 const {createTeacher,deleteTeacher,getAllTeachers, deleteAllTeachers ,getOneTeacher} = require("../controllers/TeachersP_Contro");
 const {insertCourse,insertFixCourse,getCourses ,deleteAllCourses, deleteCourse} = require("../controllers/CoursesP_Contro");
 const {executingAlgorithm } = require("../controllers/algoExe_Contro");
@@ -54,5 +56,14 @@ router.get('/loading', (req,res)=>{
 
 router.get('/algorithm',executingAlgorithm);
 
+router.get('/result',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../public/html/result.html'))
+});
+
+
+router.get('/hh',async (req,res)=>{
+    const co = await teasw.findAll({include:coursw});
+    res.status(201).json({message:co});
+})
 
 module.exports = router;
