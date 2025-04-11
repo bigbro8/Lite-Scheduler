@@ -38,7 +38,7 @@ form.addEventListener("submit",e=>{
         else{
             localStorage.setItem("algo",algo);
             localStorage.removeItem("iter");
-            window.location.replace("./loading.html");
+            window.location.replace("./loading");
         }
     }else alert("نوع الگوریتم را مشخص کنید");
 })

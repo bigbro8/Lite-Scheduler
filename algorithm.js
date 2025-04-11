@@ -780,8 +780,6 @@ function optimizer(week,rawcourseList){
                         penalty = tempenalty;
                         flag = true;
                         swapFlag = true;}
-                
-
                     }else{
                     if(isSwapGood(thisCourse,day,sec,week)){
                     let thisIndex = findSameOddEven(week[day][sec],thisCourse);

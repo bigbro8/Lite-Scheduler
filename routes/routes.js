@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const {createTeacher,deleteTeacher,getAllTeachers, deleteAllTeachers ,getOneTeacher} = require("../controllers/TeachersP_Contro");
 const {insertCourse,insertFixCourse,getCourses ,deleteAllCourses, deleteCourse} = require("../controllers/CoursesP_Contro");
+const {executingAlgorithm } = require("../controllers/algoExe_Contro");
 
 const router = express.Router();
 
@@ -44,5 +45,14 @@ router.post('/insertCourse',insertCourse);
 router.get('/selectAlgoP', (req,res)=>{
     res.sendFile(path.join(__dirname, '../public/html/selectAlgoP.html'))
 });
+
+
+//loading route handling
+router.get('/loading', (req,res)=>{
+    res.sendFile(path.join(__dirname, '../public/html/loading.html'))
+});
+
+router.get('/algorithm',executingAlgorithm);
+
 
 module.exports = router;
