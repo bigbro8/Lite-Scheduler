@@ -1,4 +1,4 @@
-// const {selectAlgorithm} = require("../algorithm");
+const {selectAlgorithm} = require("../algorithm");
 const scheduleModel = require("../models/Schedules");
 
 function makeScheduleStandard(schedule){
@@ -12,11 +12,11 @@ function makeScheduleStandard(schedule){
 
 const executingAlgorithm = (req,res) =>{
     try{
-        // const schedule =  selectAlgorithm(algo,iteration);
-        // const sch =  makeScheduleStandard(schedule);
-        // makingSche = scheduleModel.create({
-        //     weekTable:JSON.stringify(sch)
-        // })
+        const schedule =  selectAlgorithm(algo,iteration);
+        const sch =  makeScheduleStandard(schedule);
+        makingSche = scheduleModel.create({
+            weekTable:JSON.stringify(sch)
+        })
         res.status(201).json({message:"schedule successfully created"});
         
     }catch(error){

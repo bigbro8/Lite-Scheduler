@@ -1,8 +1,8 @@
-const Courses = require("./models/Courses");
-const Teachers = require("./models/Teachers");
+const Course = require("./models/Courses");
+const Teacher = require("./models/Teachers");
 
 
-//the functions those can get eliminate after using sql are marked with #R
+//the functions those can get eliminated after using sql are marked with #R
 
 console.time("time");
 function getRandomNumber(min, max) {
@@ -14,28 +14,37 @@ function getRandomNumber(min, max) {
 //--------------------------initialize the data set-------------------------
 async function fetchTeachers() {
     try {
-        const allTeachers = await Teachers.findAll({include:Courses});
+        const allTeachers = await Teacher.findAll({include:Course});
         return allTeachers;
 
     } catch (error) {
-        console.error({"couldn't fetch teachers error:":error})
+        console.error({"couldn't fetch teachers error:":error});
+        return [];
     }
 }
 
 async function fetchCourses() {
     try {
-        const allCourses = await Courses.findAll({include:Teachers});
+        const allCourses = await Course.findAll({include:Teacher});
         return allCourses;
 
     } catch (error) {
-        console.error({"couldn't fetch teachers error:":error})
+        console.error({"couldn't fetch teachers error:":error});
+        return [];
     }
 }
 
+let teacherList;
+let courses;
 
+(async ()=>{
+    teacherList = await fetchTeachers();
+    courses = await fetchCourses()
+})();
 
-let teacherList = fetchTeachers();
-let courseList = splitCourseList(fetchCourses());
+console.log("test",teacherList)
+let courseList = splitCourseList(courses);
+
 let fixCourses = courseList[0];
 let normalCourses = courseList[1];
 
