@@ -1,4 +1,4 @@
-# University Scheduler
+# Lite Scheduler
 
 A web-based application for generating automatic course schedules for universities.  
 It considers teacher availability, preferences, and fairness while minimizing conflicts and scheduling penalties.
@@ -20,12 +20,8 @@ It considers teacher availability, preferences, and fairness while minimizing co
   - Randomized (to explore more solutions).  
 
 ## Project Structure
-- `algorithm.js` – core scheduling logic.  
-- `pages/` – HTML, CSS, and JS for the user interface.  
-- `backend/` – Node.js + SQL integration (for data persistence).  
+- `algorithm.js` – core scheduling logic.
+- Based on MVC architecture
 
-## Installation
-1. Clone this repository:
-   ```bash
    git clone <repo_url>
    cd university-scheduler
